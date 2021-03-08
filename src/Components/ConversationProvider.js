@@ -1,6 +1,8 @@
 import React,{useContext, useEffect, useState,useCallback} from 'react'
 import useLocalStorage from '../Hooks/useLocalStorage'
 import {useSocket} from './SocketProvider'
+import useSound from 'use-sound';
+import messageSound from '../sounds/message.mp3'
 const ConversationsContext = React.createContext()
 
 export function useConversations() {
@@ -42,6 +44,9 @@ function ConversationProvider({children,id}) {
             }
     })
     },[setConversations])
+    if(sender!==id){
+        useSound(messageSound)
+    }
     useEffect(() => {
         if (socket == null) return
     
