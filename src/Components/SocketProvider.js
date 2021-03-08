@@ -11,7 +11,7 @@ function SocketProvider({children,id}) {
     const [socket, setSocket] = useState()
     useEffect(()=>{
         const newSocket=io(
-            'http://192.168.0.7:5000',
+            'https://budddyup.herokuapp.com',
             {query:{id}}
         )
         setSocket(newSocket)
