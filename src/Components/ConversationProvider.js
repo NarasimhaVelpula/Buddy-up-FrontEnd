@@ -1,7 +1,7 @@
 import React,{useContext, useEffect, useState,useCallback} from 'react'
 import useLocalStorage from '../Hooks/useLocalStorage'
 import {useSocket} from './SocketProvider'
-import useSound from 'use-sound';
+
 import messageSound from '../sounds/message.mp3'
 const ConversationsContext = React.createContext()
 
@@ -20,9 +20,11 @@ function ConversationProvider({children,id}) {
           return [...prevConversations, { recipients, messages: [] }]
         })
       }
+   
     const addMessageToConversation=useCallback(({recipients,text,sender})=>{
         if(sender!==id){
-            useSound(messageSound)
+            var audio=new Audio(messageSound)
+            audio.play()
         }
         setConversations(prevConv=>{
             let madeChanges=false
@@ -52,7 +54,7 @@ function ConversationProvider({children,id}) {
         if (socket == null) return
     
         socket.on('receive-message', addMessageToConversation)
-    
+       
         return () => socket.off('receive-message')
       }, [socket, addMessageToConversation])
     
