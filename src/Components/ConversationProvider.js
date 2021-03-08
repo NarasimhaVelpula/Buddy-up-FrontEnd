@@ -2,7 +2,7 @@ import React,{useContext, useEffect, useState,useCallback} from 'react'
 import useLocalStorage from '../Hooks/useLocalStorage'
 import {useSocket} from './SocketProvider'
 import useSound from 'use-sound';
-import messageSound from '../sounds/message.mp3'
+import messageSound from '../../sounds/message.mp3'
 const ConversationsContext = React.createContext()
 
 export function useConversations() {
