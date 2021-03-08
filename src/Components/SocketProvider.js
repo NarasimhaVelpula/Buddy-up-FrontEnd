@@ -9,9 +9,10 @@ export function useSocket() {
 
 function SocketProvider({children,id}) {
     const [socket, setSocket] = useState()
+
     useEffect(()=>{
         const newSocket=io(
-            'https://budddyup.herokuapp.com',
+            'https://gravel-special-leech.glitch.me/',
             {query:{id}}
         )
         setSocket(newSocket)
