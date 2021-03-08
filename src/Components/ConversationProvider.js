@@ -21,6 +21,9 @@ function ConversationProvider({children,id}) {
         })
       }
     const addMessageToConversation=useCallback(({recipients,text,sender})=>{
+        if(sender!==id){
+            useSound(messageSound)
+        }
         setConversations(prevConv=>{
             let madeChanges=false
             const newMessage={sender,text}
@@ -44,9 +47,7 @@ function ConversationProvider({children,id}) {
             }
     })
     },[setConversations])
-    if(sender!==id){
-        useSound(messageSound)
-    }
+   
     useEffect(() => {
         if (socket == null) return
     
