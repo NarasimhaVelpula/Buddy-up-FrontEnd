@@ -12,7 +12,7 @@ function SocketProvider({children,id}) {
 
     useEffect(()=>{
         const newSocket=io(
-            'http://127.0.0.1:5000/',
+            'https://gravel-special-leech.glitch.me',
             {query:{id}}
         )
         setSocket(newSocket)
