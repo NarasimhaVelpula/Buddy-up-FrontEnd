@@ -4,7 +4,7 @@ import {Form, Modal} from 'react-bootstrap'
 import {useConversations} from './ConversationProvider'
 function NewConversationModal({closeModal}) {
     const [selectedContactIds,setSelectedContactIds]=useState([])
-    const contacts=["Narasimha","Nani"]
+    
     const handleCheck=(item)=>{
             setSelectedContactIds(prevSelectedIds=>{
                 if(prevSelectedIds.includes(item)){
@@ -17,7 +17,10 @@ function NewConversationModal({closeModal}) {
                 }
             })
     }
-        const {createConversation}=useConversations()
+        const {createConversation,contacts}=useConversations()
+        const contactsList=Object.entries(contacts).map(contact=>{
+            return contact[0]
+        })
     const handleSubmit=(e)=>{
         e.preventDefault()
         createConversation(selectedContactIds)
@@ -29,7 +32,7 @@ function NewConversationModal({closeModal}) {
             <Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>
-                            {contacts.map(item=>{
+                            {contactsList.map(item=>{
                                 return(
                                     <Form.Group controlId={item} key={item}>
                                             <Form.Check 
