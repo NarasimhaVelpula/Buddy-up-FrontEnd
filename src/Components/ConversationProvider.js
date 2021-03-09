@@ -12,10 +12,12 @@ export function useConversations() {
 function ConversationProvider({children,id}) {
     const [conversations, setConversations] = useLocalStorage('conversations', [])
     const [selectedConversion,setSelectedConversion]=useState(0)
+    const [contacts,setContacts]=useState([])
     const socket=useSocket()
-    console.log(socket)
+    
     function createConversation(recipients) {
         recipients.push(id)
+        console.log(recipients)
         setConversations(prevConversations => {
           return [...prevConversations, { recipients, messages: [] }]
         })
@@ -54,7 +56,9 @@ function ConversationProvider({children,id}) {
         if (socket == null) return
     
         socket.on('receive-message', addMessageToConversation)
-       
+        socket.on('Get-Contacts',({contacts})=>{
+            setContacts(contacts)
+        })
         return () => socket.off('receive-message')
       }, [socket, addMessageToConversation])
     
@@ -64,7 +68,7 @@ function ConversationProvider({children,id}) {
         addMessageToConversation({recipients, text, sender:id} )
       }
     return (
-        <ConversationsContext.Provider value={{conversations,createConversation,selectedConversion,setSelectedConversion,sendMessage}}>
+        <ConversationsContext.Provider value={{conversations,createConversation,selectedConversion,setSelectedConversion,sendMessage,contacts}}>
             {children}
         </ConversationsContext.Provider>
     )

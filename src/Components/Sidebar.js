@@ -3,6 +3,7 @@ import {Tab,Nav,Button,Modal} from 'react-bootstrap'
 import Contacts from './Contacts'
 import Conversation from './Conversation'
 import NewConversationModal from './NewConversationModal'
+import { useConversations } from './ConversationProvider'
 const CONVERSATION_kEY="conversations"
 const CONTACT_KEY="contacts"
 function Sidebar(props) {
@@ -14,6 +15,13 @@ function Sidebar(props) {
     const openConversationModal=()=>{
         setModalStatus(true)
     }
+    const {contacts,createConversation}=useConversations()
+    const contactsList=Object.entries(contacts).filter(contact=>{
+        if(contact[1]==true){
+            return contact[0]
+        }
+        
+    })
     return (
         <div style={{width:"250px"}} className="d-flex flex-column">
             <div className="p-2 border-top border-right small">
@@ -25,7 +33,7 @@ function Sidebar(props) {
                         <Nav.Link eventKey={CONVERSATION_kEY}>Conversations</Nav.Link>
                     </Nav.Item>
                     <Nav.Item >
-                       <Nav.Link eventKey={CONTACT_KEY}>Contacts</Nav.Link>
+                       <Nav.Link eventKey={CONTACT_KEY}>Online({contactsList.length})</Nav.Link>
                     </Nav.Item>
                 </Nav>
                 <Tab.Content className="d-flex flex-grow-1 border-right overflow-auto">
@@ -33,7 +41,7 @@ function Sidebar(props) {
                         <Conversation />
                     </Tab.Pane>
                     <Tab.Pane eventKey={CONTACT_KEY}>
-                        <Contacts />
+                        <Contacts contacts={contactsList} createConversation={createConversation} id={props.id}/>
                     </Tab.Pane>
                 </Tab.Content>
                 {activeKey===CONVERSATION_kEY?<Button className="rounded-0" onClick={openConversationModal}>Create New Conversation</Button>:''}

@@ -1,9 +1,18 @@
 import React from 'react'
+import { ListGroup } from 'react-bootstrap'
 
-function Contacts() {
+function Contacts({contacts,createConversation,id}) {
     return (
         <div>
-            Contacts are here
+           
+            <ListGroup variant="flush">
+      {contacts.map((contact,ids) => (
+        <ListGroup.Item key={ids} onClick={()=>{createConversation([contact[0]])}}>
+          {contact}
+         
+        </ListGroup.Item>
+      ))}
+    </ListGroup>
         </div>
     )
 }

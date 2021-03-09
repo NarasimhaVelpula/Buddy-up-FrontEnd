@@ -3,7 +3,7 @@ import { ListGroup } from 'react-bootstrap'
 import { useConversations } from './ConversationProvider'
 function Conversation() {
     const {conversations,selectedConversion,setSelectedConversion}=useConversations()
-    console.log(conversations)
+    
     const selectConversation=ind=>{
         setSelectedConversion(ind)
     }
@@ -16,7 +16,7 @@ function Conversation() {
                             onClick={()=>{selectConversation(index)}}
                             active={index===selectedConversion}
                         >
-                            {console.log(conv.recipients)}
+                           
                             {conv.recipients.map(name=>{
                                 return name
                             }).join(',')}
