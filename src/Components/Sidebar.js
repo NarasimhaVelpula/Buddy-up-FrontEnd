@@ -17,7 +17,7 @@ function Sidebar(props) {
     }
     const {contacts,createConversation}=useConversations()
     const contactsList=Object.entries(contacts).filter(contact=>{
-        if(contact[1]==true){
+        if(contact[1]===true){
             return contact[0]
         }
         
