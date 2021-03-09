@@ -20,6 +20,9 @@ function Sidebar(props) {
         if(contact[1]===true){
             return contact[0]
         }
+        else {
+            return null
+        }
         
     })
     return (
@@ -41,7 +44,7 @@ function Sidebar(props) {
                         <Conversation />
                     </Tab.Pane>
                     <Tab.Pane eventKey={CONTACT_KEY}>
-                        <Contacts contacts={contactsList} createConversation={createConversation} id={props.id}/>
+                        <Contacts contacts={contactsList} createConversation={createConversation} id={props.id} setActiveKey={setActiveKey}/>
                     </Tab.Pane>
                 </Tab.Content>
                 {activeKey===CONVERSATION_kEY?<Button className="rounded-0" onClick={openConversationModal}>Create New Conversation</Button>:''}

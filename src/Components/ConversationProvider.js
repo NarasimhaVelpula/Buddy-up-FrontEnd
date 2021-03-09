@@ -50,7 +50,7 @@ function ConversationProvider({children,id}) {
                 return [...prevConv,{recipients,messages:[newMessage]}]
             }
     })
-    },[setConversations])
+    },[setConversations,id])
    
     useEffect(() => {
         if (socket == null) return
